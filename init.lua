@@ -230,6 +230,34 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
+
+  {
+    'nvim-java/nvim-java',
+    dependencies = { 'nvim-java/lua-async-await' },
+    config = function()
+      require('java').setup {
+        jdk = {
+          auto_install = false,
+        },
+      }
+      require('lspconfig').jdtls.setup {
+        settings = {
+          java = {
+            configuration = {
+              runtimes = {
+                {
+                  name = 'Java 23',
+                  path = '/Users/vladflore/.sdkman/candidates/java/23.0.1-oracle',
+                  default = true,
+                },
+              },
+            },
+          },
+        },
+      }
+    end,
+  },
+
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
@@ -474,6 +502,7 @@ require('lazy').setup({
       { 'williamboman/mason.nvim', opts = {} },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
+      'nvim-java/nvim-java',
 
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
@@ -955,7 +984,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'java' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
